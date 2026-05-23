@@ -1,0 +1,27 @@
+{
+  "policy": "Public claims must be verified, anonymized, or cleared before publication.",
+  "statuses": ["verified", "needs_proof", "internal_only", "remove"],
+  "proofGrounds": [
+    {
+      "name": "WGAI Core",
+      "status": "package_first",
+      "evidenceNeeded": ["agent orchestration examples", "workflow registry screenshots", "BPOS build history", "QA logs", "scorecard examples"]
+    },
+    {
+      "name": "ACS Service Lane",
+      "status": "collect_and_verify",
+      "evidenceNeeded": ["lead capture flow", "CRM pipeline movement", "LocalPresenceOS results", "follow-up examples", "service-business operations proof"]
+    },
+    {
+      "name": "WADE Leader Lane",
+      "status": "separate_brand_proof",
+      "evidenceNeeded": ["assessment path", "event/audience capture", "content authority", "offer routing", "community or leadership proof"]
+    }
+  ],
+  "claimRules": [
+    "Do not publish performance numbers without evidence.",
+    "Do not imply WGAI delivery claims from WADE leadership proof.",
+    "Do not use ACS proof as WGAI public proof unless anonymized, approved, or framed as an internal proving ground.",
+    "If evidence is not attached, classify the claim as needs_proof or internal_only."
+  ]
+}

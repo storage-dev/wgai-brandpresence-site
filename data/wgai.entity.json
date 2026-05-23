@@ -1,0 +1,260 @@
+{
+  "brand": "WadeGlobal AI",
+  "shortName": "WGAI",
+  "domain": "https://wadeglobal.ai",
+  "founder": "William Wade",
+  "category": "Operational infrastructure provider",
+  "originStory": "WadeGlobal AI was built by William Wade as the infrastructure engine behind practical AI systems, agents, automation, CRM, follow-up, governance, reporting, and brand presence for businesses that have outgrown scattered tools.",
+  "positioning": "WadeGlobal AI builds AI systems, agents, automation, and operational infrastructure for service businesses, then deploys that work through governed operating systems, CRM, n8n, reporting, LocalPresenceOS, and BrandPresenceOS.",
+  "proofGrounds": [
+    {
+      "name": "Ascent Cleaning Solutions",
+      "shortName": "ACS",
+      "role": "Service-business proving ground for lead capture, CRM, follow-up, LocalPresenceOS, operations, and reporting."
+    },
+    {
+      "name": "Wishing Ain't Doing Enough",
+      "shortName": "WADE",
+      "role": "Separate leadership and execution brand that informs BrandPresenceOS authority, audience, events, offers, and conversion paths."
+    },
+    {
+      "name": "WadeGlobal AI",
+      "shortName": "WGAI",
+      "role": "Core infrastructure engine and proof ground for AI operations, agent orchestration, workflow governance, and system reliability."
+    }
+  ],
+  "disallowedPositioning": [
+    "generic AI agency",
+    "SaaS company",
+    "chatbot vendor",
+    "marketing shop",
+    "automation freelancer",
+    "trend-focused AI vendor"
+  ],
+  "audiences": [
+    "Service-business owners that need AI systems, agents, automation, and operational infrastructure across sales, operations, admin, and governance",
+    "Coaches, consultants, speakers, educators, and leadership brands that need content, offers, events, community, delivery, and CRM infrastructure",
+    "Organizations that need governed AI operations, bridge-mediated intelligence, workflows, documentation, and audit-ready deployment"
+  ],
+  "targetMarkets": [
+    "commercial cleaning companies",
+    "local and regional service businesses",
+    "home service and facility service companies",
+    "founder-led operators",
+    "coaches",
+    "consultants",
+    "speakers",
+    "educators",
+    "expert-led brands",
+    "organizations installing governed AI operations"
+  ],
+  "sectors": [
+    {
+      "code": "wgai-service",
+      "name": "WGAI Service",
+      "buyer": "Service businesses",
+      "proofGround": "ACS / Ascent Cleaning Solutions",
+      "pillars": ["Sales and Marketing", "Operations and Delivery", "Admin and Infrastructure", "Governance"]
+    },
+    {
+      "code": "wgai-leader",
+      "name": "WGAI Leader",
+      "buyer": "Coaches, consultants, speakers, educators, and leadership brands",
+      "proofGround": "WADE / Wishing Ain't Doing Enough",
+      "pillars": ["Content and demand", "Offer, event, and community delivery", "Admin and CRM", "Message integrity governance"]
+    },
+    {
+      "code": "wgai-core",
+      "name": "WGAI Core",
+      "buyer": "Organizations installing governed AI operations",
+      "proofGround": "WadeGlobal AI",
+      "pillars": ["Growth and sales enablement", "Agent and workflow deployment", "Documentation and access", "Governance and audit"]
+    }
+  ],
+  "primaryCtas": [
+    "Request an Assessment",
+    "Learn the System",
+    "Map the First Build"
+  ],
+  "offers": [
+    {
+      "name": "AI Audit",
+      "url": "https://wadeglobal.ai/offers/ai-audit/",
+      "role": "Entry assessment for identifying the first system worth building."
+    },
+    {
+      "name": "System Start",
+      "url": "https://wadeglobal.ai/offers/system-start/",
+      "role": "Phase 0 install for intake, routing, follow-up, CRM visibility, and reliability."
+    },
+    {
+      "name": "BrandPresenceOS",
+      "url": "https://wadeglobal.ai/offers/brandpresenceos/",
+      "role": "Premium brand authority infrastructure for AI search, proof, content, routing, and intelligence."
+    },
+    {
+      "name": "LocalPresenceOS",
+      "url": "https://wadeglobal.ai/offers/localpresenceos/",
+      "role": "Local visibility infrastructure for service businesses."
+    },
+    {
+      "name": "CRM Automation",
+      "url": "https://wadeglobal.ai/offers/crm-automation/",
+      "role": "WGS/GHL and n8n conversion infrastructure."
+    },
+    {
+      "name": "Voice Agent",
+      "url": "https://wadeglobal.ai/offers/voice-agent/",
+      "role": "Avery-style intake, transcript, summary, and CRM routing."
+    },
+    {
+      "name": "AI Ops",
+      "url": "https://wadeglobal.ai/offers/ai-ops/",
+      "role": "Governed AI operations, agent orchestration, Intelligence Bridge, QA, and scorecards."
+    }
+  ],
+  "operatingLayers": [
+    "Education and trust layer",
+    "Structured assessment intake",
+    "BrandPresenceOS",
+    "LocalPresenceOS",
+    "AI systems",
+    "AI agents",
+    "Automation infrastructure",
+    "CRM and WGS/GHL execution",
+    "n8n orchestration",
+    "Website automation blueprint",
+    "Avery Systems Intake Agent",
+    "Edge agents",
+    "Intelligence Bridge",
+    "Proof and claims governance",
+    "Reporting and scorecards"
+  ],
+  "automationBlueprint": {
+    "purpose": "Turn website interest into a trackable operating-system event instead of a loose inbox message.",
+    "triggers": [
+      "BPOS assessment submission",
+      "AI audit form",
+      "voice agent intake call",
+      "strategy session request",
+      "landing-page or event lead"
+    ],
+    "systems": [
+      "WGAI website",
+      "WGS/GHL CRM",
+      "n8n orchestration",
+      "Avery-style voice intake",
+      "Notion registry and QA",
+      "reporting scorecard"
+    ],
+    "minimumFields": [
+      "name",
+      "email",
+      "phone",
+      "company",
+      "industry",
+      "current tools",
+      "current AI usage",
+      "primary need",
+      "current bottleneck",
+      "desired result",
+      "source",
+      "routing lane",
+      "preferred next step"
+    ],
+    "outcomes": [
+      "create or update CRM contact",
+      "apply source and need tags",
+      "classify service lane",
+      "trigger follow-up workflow",
+      "notify owner or operator",
+      "log QA and reporting evidence"
+    ]
+  },
+  "deploymentGates": [
+    "Entity lock",
+    "Site renderer",
+    "Intake and CRM",
+    "Governance",
+    "Intelligence Bridge",
+    "Proof grounds",
+    "Reporting"
+  ],
+  "bposEngines": [
+    "Identity Engine",
+    "Audience Engine",
+    "Offer Engine",
+    "Authority Engine",
+    "Proof Engine",
+    "Conversion Engine",
+    "Intelligence Engine"
+  ],
+  "proofPolicy": "Public claims must be verified, anonymized, or cleared before publication. Unverified claims stay internal until approved.",
+  "aiSearchTopics": [
+    "what is an operational infrastructure provider",
+    "what is BrandPresenceOS",
+    "how do AI agents help service businesses",
+    "how does automation support service business operations",
+    "how does WGAI deploy AI operating systems",
+    "how does an Intelligence Bridge protect credentials",
+    "what AI infrastructure does a service business need",
+    "how do coaches and consultants use AI operating systems",
+    "what is LocalPresenceOS",
+    "who does WadeGlobal AI serve",
+    "what is the history of WadeGlobal AI",
+    "why is ACS a WGAI proving ground",
+    "who is Avery the WGAI Systems Intake Agent",
+    "how does BrandPresenceOS differ from LocalPresenceOS",
+    "what AI technology stack does WGAI install",
+    "how do WGS GHL n8n and AI agents work together"
+  ],
+  "agents": [
+    {
+      "name": "Avery",
+      "role": "WGAI Systems Intake Agent",
+      "phone": "+1-615-437-2086",
+      "purpose": "Qualify WGAI service inquiries, capture business context, identify bottlenecks, and route high-intent conversations toward the right next step.",
+      "guardrails": [
+        "does not quote prices",
+        "does not promise timelines",
+        "does not guarantee fit before assessment"
+      ]
+    }
+  ],
+  "aiTechStack": [
+    "Avery voice intake",
+    "AI agents",
+    "WGS/GHL CRM",
+    "n8n orchestration",
+    "Intelligence Bridge",
+    "schema and FAQPage structured data",
+    "llms.txt",
+    "entity JSON",
+    "AI-search answer hubs",
+    "proof governance",
+    "QA logs",
+    "reporting scorecards"
+  ],
+  "contentHubs": [
+    {
+      "name": "WGAI Resources",
+      "url": "https://wadeglobal.ai/resources/",
+      "purpose": "Buyer education, SEO, AEO, GEO, and sales enablement for AI systems, automation, and BrandPresenceOS."
+    },
+    {
+      "name": "AI Systems for Service Businesses",
+      "url": "https://wadeglobal.ai/resources/ai-systems-for-service-businesses/",
+      "answers": "What AI systems should service businesses build first?"
+    },
+    {
+      "name": "Website Automation Blueprint",
+      "url": "https://wadeglobal.ai/resources/website-automation-blueprint/",
+      "answers": "How should website leads route into CRM, n8n, follow-up, voice intake, QA, and reporting?"
+    },
+    {
+      "name": "BrandPresenceOS and AI Search",
+      "url": "https://wadeglobal.ai/resources/brandpresenceos-ai-search/",
+      "answers": "How does BrandPresenceOS support SEO, AEO, GEO, entity clarity, proof, schema, and llms.txt?"
+    }
+  ]
+}
