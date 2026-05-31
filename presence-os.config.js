@@ -17,7 +17,7 @@ window.PRESENCE_OS_CONFIG = {
   ga4Id: "G-SRK27X1R1Q",
   gtmId: "",
   cfToken: "",
-  clarityId: "",
+  clarityId: "wzikklu6x6",
   fbPixelId: "",
   linkedinPartnerId: "",
   chatWidgetId: "",
