@@ -14,7 +14,7 @@
  *   chatWidgetId       embed id        GHL/LeadConnector chat widget (set showChatWidget true)
  */
 window.PRESENCE_OS_CONFIG = {
-  ga4Id: "",
+  ga4Id: "G-SRK27X1R1Q",
   gtmId: "",
   cfToken: "",
   clarityId: "",
