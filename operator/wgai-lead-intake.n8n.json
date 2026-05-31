@@ -1,0 +1,119 @@
+{
+  "name": "WadeGlobal AI — Lead Intake Operator (L4)",
+  "meta": {
+    "description": "Level 4 operator follow-up for wadeglobal.ai. Receives the BPOS assessment-intake webhook (Level 3), validates + scores, sends an instant on-brand auto-reply, notifies the team, and routes hot/cold. IMPORTANT: every Gmail node MUST keep options.appendAttribution=false (Wade ban on the 'Sent with n8n' footer). Credentials + GHL/WGS upsert are placeholders — wire before activating."
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wgai-lead-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-intake",
+      "name": "Lead Webhook (from site)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 320],
+      "webhookId": "wgai-lead-intake"
+    },
+    {
+      "parameters": {
+        "jsValue": "const b = $input.first().json.body || $input.first().json;\nconst v = (k) => (b[k] == null ? '' : String(b[k])).trim();\nconst spam = Object.keys(b).some((k) => k.charAt(0) === '_' && String(b[k]).length > 0);\nconst step = v('preferred_next_step').toLowerCase();\nconst need = v('need').toLowerCase();\n// Hot = ready to talk/build; cold = needs education first.\nconst hot = /book|strategy|session|assessment|review|map|voice|intake/.test(step) || /crm|automation|brandpresence|localpresence|agent/.test(need);\nreturn [{ json: {\n  spam,\n  lead_temp: hot ? 'hot' : 'cold',\n  name: v('name'),\n  email: v('email'),\n  phone: v('phone'),\n  company: v('company'),\n  industry: v('industry'),\n  market_lane: v('market_lane'),\n  need: v('need'),\n  preferred_next_step: v('preferred_next_step'),\n  message: v('bottleneck'),\n  desired_result: v('desired_result'),\n  page_url: v('page_url'),\n  utm: b.utm || {},\n  raw: b\n}}];"
+      },
+      "id": "normalize-score",
+      "name": "Normalize + Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 320]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "version": 2 },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.spam }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "false" }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "is-real-lead",
+      "name": "Real lead? (not spam)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [700, 320]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "Your WGAI assessment request is in",
+        "emailType": "text",
+        "message": "Hi {{ $json.name }},\n\nThanks for telling WadeGlobal AI where your system is breaking. Your assessment request landed and we'll come back to you personally with the next step.\n\nHere's what happens now: we classify the sector, map the operating spine, and identify what your business actually needs first — identity, audience, offer, authority, proof, conversion, or intelligence. No guessing, no generic package.\n\nWe'll be in touch shortly.\n\n— WadeGlobal AI\nWhere Vision Meets Execution",
+        "options": { "appendAttribution": false }
+      },
+      "id": "auto-reply-lead",
+      "name": "Auto-reply to lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [960, 220],
+      "credentials": { "gmailOAuth2": { "id": "TODO_GMAIL_CRED_ID", "name": "WGAI admin Gmail (TODO)" } }
+    },
+    {
+      "parameters": {
+        "sendTo": "admin@wadeglobal.ai",
+        "subject": "=New {{ $json.lead_temp }} WGAI lead — {{ $json.name }} ({{ $json.market_lane }})",
+        "emailType": "text",
+        "message": "=New assessment request from wadeglobal.ai\n\nTemp: {{ $json.lead_temp }}\nName: {{ $json.name }}\nEmail: {{ $json.email }}\nPhone: {{ $json.phone }}\nCompany: {{ $json.company }}\nIndustry: {{ $json.industry }}\nMarket lane: {{ $json.market_lane }}\nNeeds most help: {{ $json.need }}\nNext step: {{ $json.preferred_next_step }}\nPage: {{ $json.page_url }}\nUTM: {{ JSON.stringify($json.utm) }}\n\nBottleneck:\n{{ $json.message }}\n\nDesired result:\n{{ $json.desired_result }}",
+        "options": { "appendAttribution": false }
+      },
+      "id": "notify-team",
+      "name": "Notify team",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [960, 420],
+      "credentials": { "gmailOAuth2": { "id": "TODO_GMAIL_CRED_ID", "name": "WGAI admin Gmail (TODO)" } }
+    },
+    {
+      "parameters": {
+        "jsValue": "// TODO: upsert into WGS/GHL here (HTTP Request node to the GHL contacts API),\n// apply tags: source=wgai-bpos-site, routing_lane=assessment-intake, market_lane,\n// need, lead_temp. Hot -> sales pipeline + alert; cold -> education nurture.\nreturn $input.all();"
+      },
+      "id": "crm-route-todo",
+      "name": "WGS/GHL upsert + route (TODO)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 320]
+    },
+    {
+      "parameters": { "respondWith": "json", "responseBody": "={{ { \"ok\": true } }}", "options": {} },
+      "id": "respond-200",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1440, 320]
+    }
+  ],
+  "connections": {
+    "Lead Webhook (from site)": { "main": [[{ "node": "Normalize + Score", "type": "main", "index": 0 }]] },
+    "Normalize + Score": { "main": [[{ "node": "Real lead? (not spam)", "type": "main", "index": 0 }]] },
+    "Real lead? (not spam)": {
+      "main": [
+        [
+          { "node": "Auto-reply to lead", "type": "main", "index": 0 },
+          { "node": "Notify team", "type": "main", "index": 0 }
+        ],
+        [{ "node": "Respond 200", "type": "main", "index": 0 }]
+      ]
+    },
+    "Auto-reply to lead": { "main": [[{ "node": "WGS/GHL upsert + route (TODO)", "type": "main", "index": 0 }]] },
+    "Notify team": { "main": [[{ "node": "WGS/GHL upsert + route (TODO)", "type": "main", "index": 0 }]] },
+    "WGS/GHL upsert + route (TODO)": { "main": [[{ "node": "Respond 200", "type": "main", "index": 0 }]] }
+  }
+}

@@ -36,6 +36,7 @@
     chatWidgetId: "", // GHL/LeadConnector public chat-widget embed id
     showChatWidget: false,
     showCookieBanner: true,
+    leadWebhookUrl: "", // Level 3 conversion pipe: real lead-intake endpoint (n8n/GHL). Blank = mailto fallback.
   };
 
   var CFG = Object.assign({}, DEFAULTS, window.PRESENCE_OS_CONFIG || {});
@@ -237,12 +238,71 @@
     }, true);
   }
 
+  // ── Level 3 conversion pipe: route lead forms to a real endpoint ────────────
+  // Any <form data-lead-form> (or form.contact-form) POSTs its fields + first-
+  // touch UTM as JSON to CFG.leadWebhookUrl. Blank endpoint = no-op (the form
+  // keeps its native mailto fallback). lead_submit still fires via wireListeners
+  // so the conversion is counted either way. Honeypot: any input whose name
+  // starts with "_" (e.g. _gotcha) is treated as a spam trap and excluded.
+  function wireLeadForms() {
+    if (!CFG.leadWebhookUrl) return; // no endpoint configured → native behavior
+    document.addEventListener("submit", function (e) {
+      var form = e.target;
+      if (!form || form.tagName !== "FORM") return;
+      if (!(form.matches("[data-lead-form]") || (form.className || "").indexOf("contact-form") > -1)) return;
+
+      var hp = form.querySelector("input[name^='_']");
+      if (hp && hp.value) { e.preventDefault(); return; } // silent spam drop
+
+      e.preventDefault();
+
+      var payload = {};
+      try {
+        new window.FormData(form).forEach(function (v, k) { if (k.charAt(0) !== "_") payload[k] = v; });
+      } catch (err) { /* keep going with whatever we have */ }
+      payload.page_url = window.location.href;
+      payload.submitted_at = new Date().toISOString();
+      payload.utm = getUtm();
+
+      var btn = form.querySelector("[type='submit'], button");
+      var label = btn ? btn.textContent : "";
+      if (btn) btn.disabled = true;
+
+      function status(msg, ok) {
+        var el = form.querySelector("[data-form-status]");
+        if (!el) {
+          el = document.createElement("p");
+          el.setAttribute("data-form-status", "");
+          el.style.cssText = "margin-top:12px;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;";
+          form.appendChild(el);
+        }
+        el.textContent = msg;
+        el.style.color = ok ? "#1c7c43" : "#b4452f";
+      }
+
+      window.fetch(CFG.leadWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).then(function (r) {
+        if (!r.ok) throw new Error("bad status " + r.status);
+        form.reset();
+        status("Thanks — your request is in. We'll be in touch shortly.", true);
+      }).catch(function () {
+        status("Couldn't send that just now. Please email us directly and we'll jump on it.", false);
+      }).then(function () {
+        if (btn) { btn.disabled = false; if (label) btn.textContent = label; }
+      });
+    }, false);
+  }
+
   // ── boot ────────────────────────────────────────────────────────────────────
   function boot() {
     captureUtm();
     loadUngated();
     if (getConsent() === "accepted") loadGated();
     wireListeners();
+    wireLeadForms();
     showBanner();
     window.addEventListener(CONSENT_EVENT, function (e) {
       if (e && e.detail === "accepted") loadGated();

@@ -23,4 +23,12 @@ window.PRESENCE_OS_CONFIG = {
   chatWidgetId: "",
   showChatWidget: false,
   showCookieBanner: true,
+
+  // ── Level 3 (conversion pipe) ──────────────────────────────────────────────
+  // Real lead-intake endpoint. When set, forms marked [data-lead-form] (or
+  // .contact-form) POST their fields + first-touch UTM as JSON here instead of
+  // the mailto fallback. Point it at a governed n8n webhook
+  // (https://n8n.wadeglobal.ai/webhook/...) or a GHL inbound webhook. Blank =
+  // safe no-op (form keeps its mailto fallback, nothing breaks).
+  leadWebhookUrl: "",
 };
